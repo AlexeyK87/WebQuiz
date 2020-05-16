@@ -7,7 +7,7 @@ import java.util.List;
 
 @Controller
 public class StorageInMemoryImpl implements Storage {
-    private List<Quiz> quizzes = new ArrayList<>();
+    private final List<Quiz> quizzes = new ArrayList<>();
     private int counter = 0;
 
     @Override

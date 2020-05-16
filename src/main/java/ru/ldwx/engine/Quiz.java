@@ -2,14 +2,27 @@ package ru.ldwx.engine;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class Quiz {
     private int id;
+
+    @NotBlank
     private String title;
+
+    @NotBlank
     private String text;
+
+    @Size(min = 2)
+    @NotNull
+    @NotEmpty
     private String[] options;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private int answer;
+    private int[] answer;
 
     public Quiz() {
     }
@@ -52,11 +65,11 @@ public class Quiz {
         this.id = id;
     }
 
-    public int getAnswer() {
+    public int[] getAnswer() {
         return answer;
     }
 
-    public void setAnswer(int answer) {
+    public void setAnswer(int[] answer) {
         this.answer = answer;
     }
 }
