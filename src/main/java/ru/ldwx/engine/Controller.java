@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -42,7 +41,7 @@ public class Controller {
                     HttpStatus.NOT_FOUND, "entity not found"
             );
         }
-        if (Arrays.equals(answer.getAnswer(), quiz.getAnswer())) {
+        if (answer.getAnswer().equals(quiz.getAnswer())) {
             return new Result(true);
         } else {
             return new Result(false);

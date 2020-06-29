@@ -1,11 +1,8 @@
 package ru.ldwx.engine;
 
-import org.springframework.stereotype.Controller;
-
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
 public class StorageInMemoryImpl implements Storage {
     private final List<Quiz> quizzes = new ArrayList<>();
     private int counter = 0;
