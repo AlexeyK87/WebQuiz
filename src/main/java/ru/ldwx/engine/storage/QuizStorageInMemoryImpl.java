@@ -1,9 +1,11 @@
-package ru.ldwx.engine;
+package ru.ldwx.engine.storage;
+
+import ru.ldwx.engine.entity.Quiz;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class StorageInMemoryImpl implements Storage {
+public class QuizStorageInMemoryImpl implements QuizStorage {
     private final List<Quiz> quizzes = new ArrayList<>();
     private int counter = 0;
 
@@ -25,5 +27,10 @@ public class StorageInMemoryImpl implements Storage {
     @Override
     public List<Quiz> getAll() {
         return new ArrayList<>(quizzes);
+    }
+
+    @Override
+    public void deleteQuiz(int id) {
+        quizzes.remove(id);
     }
 }

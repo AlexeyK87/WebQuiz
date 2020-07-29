@@ -1,4 +1,4 @@
-package ru.ldwx.engine;
+package ru.ldwx.engine.entity;
 
 import java.util.List;
 

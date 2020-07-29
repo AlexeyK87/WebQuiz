@@ -1,17 +1,19 @@
-package ru.ldwx.engine;
+package ru.ldwx.engine.storage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import ru.ldwx.engine.entity.Quiz;
+import ru.ldwx.engine.repository.QuizRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class StorageH2Impl implements Storage {
+public class QuizStorageH2Impl implements QuizStorage {
     private final QuizRepository repository;
 
     @Autowired
-    public StorageH2Impl(QuizRepository repository) {
+    public QuizStorageH2Impl(QuizRepository repository) {
         this.repository = repository;
     }
 
@@ -33,5 +35,10 @@ public class StorageH2Impl implements Storage {
             quizzes.add(q);
         }
         return quizzes;
+    }
+
+    @Override
+    public void deleteQuiz(int id) {
+        repository.deleteById(id);
     }
 }

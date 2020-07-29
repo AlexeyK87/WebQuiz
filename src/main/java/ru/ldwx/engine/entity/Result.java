@@ -1,4 +1,4 @@
-package ru.ldwx.engine;
+package ru.ldwx.engine.entity;
 
 public class Result {
     private boolean success;
@@ -12,7 +12,7 @@ public class Result {
         if (success) {
             this.feedback = "Congratulations, you're right!";
         } else {
-            this.feedback ="Wrong answer! Please, try again.";
+            this.feedback = "Wrong answer! Please, try again.";
         }
     }
 

@@ -1,12 +1,8 @@
-package ru.ldwx.engine;
+package ru.ldwx.engine.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -36,6 +32,9 @@ public class Quiz {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ElementCollection
     private List<Integer> answer = new ArrayList<>();
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String userName;
 
     public Quiz() {
     }
@@ -85,5 +84,13 @@ public class Quiz {
 
     public void setAnswer(List<Integer> answer) {
         this.answer = answer;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }
