@@ -8,9 +8,6 @@ import org.springframework.stereotype.Controller;
 import ru.ldwx.engine.entity.Quiz;
 import ru.ldwx.engine.repository.QuizRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Controller
 public class QuizStorageH2Impl implements QuizStorage {
     private final QuizRepository repository;
@@ -29,15 +26,6 @@ public class QuizStorageH2Impl implements QuizStorage {
     public int saveQuiz(Quiz quiz) {
         Quiz savedQuiz = repository.save(quiz);
         return savedQuiz.getId();
-    }
-
-    @Override
-    public List<Quiz> getAll() {
-        List<Quiz> quizzes = new ArrayList<>();
-        for (Quiz q : repository.findAll()) {
-            quizzes.add(q);
-        }
-        return quizzes;
     }
 
     @Override

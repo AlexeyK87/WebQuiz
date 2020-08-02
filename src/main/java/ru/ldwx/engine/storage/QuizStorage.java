@@ -9,6 +9,5 @@ public interface QuizStorage {
     Quiz getQuiz(int id);
     void deleteQuiz(int id);
     int saveQuiz(Quiz quiz);
-    List<Quiz> getAll();
     Page<Quiz> getAll(Integer pageNo);
 }

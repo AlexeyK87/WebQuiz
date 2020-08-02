@@ -15,11 +15,6 @@ public class UserStorageH2Impl implements UserStorage {
     }
 
     @Override
-    public User get(int id) {
-        return repository.findById(id).orElse(null);
-    }
-
-    @Override
     public int save(User user) {
         User saved = repository.save(user);
         return saved.getId();

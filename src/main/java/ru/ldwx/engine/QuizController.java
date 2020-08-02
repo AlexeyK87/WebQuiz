@@ -9,30 +9,29 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import ru.ldwx.engine.entity.Answer;
+import ru.ldwx.engine.entity.Completion;
 import ru.ldwx.engine.entity.Quiz;
 import ru.ldwx.engine.entity.Result;
+import ru.ldwx.engine.storage.CompletionStorage;
 import ru.ldwx.engine.storage.QuizStorage;
 
 import javax.validation.Valid;
-import java.util.List;
+import java.time.LocalDateTime;
 
 @RestController
 public class QuizController {
     private final QuizStorage quizStorage;
+    private final CompletionStorage completionStorage;
 
     @Autowired
-    public QuizController(QuizStorage quizStorage) {
+    public QuizController(QuizStorage quizStorage, CompletionStorage completionStorage) {
         this.quizStorage = quizStorage;
+        this.completionStorage = completionStorage;
     }
 
-/*    @GetMapping("/api/quizzes")
-    public List<Quiz> getAllQuiz() {
-        return quizStorage.getAll();
-    }*/
-
     @GetMapping("/api/quizzes")
-    public Page<Quiz> getAllQuiz(@RequestParam(defaultValue = "0") Integer pageNo) {
-        return quizStorage.getAll(pageNo);
+    public Page<Quiz> getAllQuiz(@RequestParam(defaultValue = "0") Integer page) {
+        return quizStorage.getAll(page);
     }
 
     @GetMapping("/api/quizzes/{id}")
@@ -54,7 +53,12 @@ public class QuizController {
                     HttpStatus.NOT_FOUND, "entity not found"
             );
         }
+
         if (answer.getAnswer().equals(quiz.getAnswer())) {
+            String userName = getCurrentUserName();
+            LocalDateTime dateTime = LocalDateTime.now();
+            Completion completion = new Completion(userName, id, dateTime);
+            completionStorage.save(completion);
             return new Result(true);
         } else {
             return new Result(false);
@@ -82,6 +86,12 @@ public class QuizController {
             return new ResponseEntity<Quiz>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<Quiz>(HttpStatus.FORBIDDEN);
+    }
+
+    @GetMapping("/api/quizzes/completed")
+    public Page<Completion> getCompleted(@RequestParam(defaultValue = "0") Integer page) {
+        String name = getCurrentUserName();
+        return completionStorage.getAllByUserName(page, name);
     }
 
     private String getCurrentUserName() {
