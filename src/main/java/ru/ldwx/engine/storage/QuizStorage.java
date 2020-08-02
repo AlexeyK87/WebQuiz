@@ -1,12 +1,14 @@
 package ru.ldwx.engine.storage;
 
+import org.springframework.data.domain.Page;
 import ru.ldwx.engine.entity.Quiz;
 
 import java.util.List;
 
 public interface QuizStorage {
-    public Quiz getQuiz(int id);
-    public void deleteQuiz(int id);
-    public int saveQuiz(Quiz quiz);
-    public List<Quiz> getAll();
+    Quiz getQuiz(int id);
+    void deleteQuiz(int id);
+    int saveQuiz(Quiz quiz);
+    List<Quiz> getAll();
+    Page<Quiz> getAll(Integer pageNo);
 }

@@ -1,6 +1,7 @@
 package ru.ldwx.engine;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,9 +25,14 @@ public class QuizController {
         this.quizStorage = quizStorage;
     }
 
-    @GetMapping("/api/quizzes")
+/*    @GetMapping("/api/quizzes")
     public List<Quiz> getAllQuiz() {
         return quizStorage.getAll();
+    }*/
+
+    @GetMapping("/api/quizzes")
+    public Page<Quiz> getAllQuiz(@RequestParam(defaultValue = "0") Integer pageNo) {
+        return quizStorage.getAll(pageNo);
     }
 
     @GetMapping("/api/quizzes/{id}")
